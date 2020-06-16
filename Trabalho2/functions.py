@@ -7,7 +7,7 @@ Noé de Lima <noe_lima@id.uff.br>
 '''
 
 # Bibliotecas importadas
-from numpy import array
+from numpy import array,sqrt,sin,cos,arctan
 import json
 
 # Classe para armazenar nós
@@ -20,6 +20,25 @@ class node:
         self.Ry = ry
         self.Rz = rz
         self.tag = tag
+        
+# Classe para armazenar barras
+class bar:
+    def __init__(self,no1,no2,EA,tag=''):
+        self.dx = no2.x - no1.x # Delta x da barra
+        self.dy = no2.y - no1.y # Delta y da barra
+        self.L = sqrt(self.dx**2 + self.dy**2)
+        self.a = arctan(self.dy/self.dx) # Ângulo alpha da barra
+        self.EA = EA
+        
+# Função para calcular a Matriz de Rotação T
+def mat_T(a=0):
+    T = array([
+        [cos(a)**2, sin(a)*cos(a), -cos(a)**2, -sin(a)*cos(a)],
+        [sin(a)*cos(a), sin(a)**2, -sin(a)*cos(a), -sin(a)**2],
+        [-cos(a)**2, -sin(a)*cos(a), cos(a)**2, sin(a)*cos(a)],
+        [-sin(a)*cos(a), -sin(a)**2, sin(a)*cos(a), sin(a)**2],
+    ])
+    return T
 
 # Classe para tratar as treliças
 class trelica:
