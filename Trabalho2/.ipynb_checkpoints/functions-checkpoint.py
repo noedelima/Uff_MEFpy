@@ -7,8 +7,8 @@ Noé de Lima <noe_lima@id.uff.br>
 '''
 
 # Bibliotecas importadas
-from numpy import array,angle,zeros
-from numpy.linalg import norm
+from numpy import angle,array,delete,isnan,nan,zeros
+from numpy.linalg import norm,solve
 import json
 
 # Classe para armazenar nós
@@ -21,7 +21,7 @@ class node:
         self.tag = tag
     
     def support(self,rx,ry,rz):
-        self.supp = array([rx,ry,rz])
+        self.s = array([rx,ry,rz])
         
     def load(self,fx,fy,fz):
         self.l = array([fx,fy,fz])
@@ -62,7 +62,7 @@ class trelica:
                 self.file = json.load(f)
                 self.n = self.file['n']
                 EA = array(self.file['bars'])
-                self.cargas = array(self.file['loads'])
+                cargas = array(self.file['loads'])
                 self.nos = []
                 self.barras = []
                 self.K = zeros([2*self.n,2*self.n])
@@ -78,12 +78,20 @@ class trelica:
                               value['Rz'],)
                     self.nos.append(no)
                 for i in range(self.n):
+                    no.load(cargas[i][0],
+                              cargas[i][1],
+                              cargas[i][2],)
                     # Cálculo dos Vetores u e f
-                    ff = array([0.,0.])
-                    uu = array([0.,0.])
-                    if self.nos[i].
-                    self.u[i] =
-                    self.f[i] =
+                    ff = array([self.nos[i].l[0],self.nos[i].l[1]])
+                    uu = array([nan,nan])
+                    if self.nos[i].s[0]:
+                        uu[0] = 0
+                        ff[0] = nan
+                    if self.nos[i].s[1]:
+                        uu[1] = 0
+                        ff[1] = nan
+                    self.f[2*i:2*i+2] = ff
+                    self.u[2*i:2*i+2] = uu
                     for j in range(i,self.n):
                         if EA[i,j]:
                             barra = bar(self.nos[i],self.nos[j],EA[i,j])
@@ -102,3 +110,31 @@ class trelica:
             return None
         finally:
             return
+        
+    def deslocamentos(self):
+        K,u,f = self.K,self.u,self.f
+        change = True
+        m = 2*self.n
+        while change:
+            change = False
+            for i in range(m):
+                if isnan(f[i]):
+                    f -= u[i]*K[:,i]
+                    K[:,i] = zeros(m)
+                    K[i,i] = -1
+                    K = delete(K,i,0)
+                    K = delete(K,i,1)
+                    u = delete(u,i)
+                    f = delete(f,i)
+                    change = True
+                    m -= 1
+                    break
+        u = solve(K,f)
+        k = 0
+        for i in range(2*self.n):
+            if isnan(self.u[i]):
+                self.u[i] = u[k]
+                k += 1
+        self.f = self.K.dot(self.u)
+        for i in range(self.n):
+            self.nos[i].load(self.f[2*i],self.f[2*i+1],0.)
