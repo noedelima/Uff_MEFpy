@@ -2,34 +2,46 @@
     "dim": 2,
     "n": 3,
     "nodes": {
-        "Nó 1": {
+        "No 1": {
             "x": 0.0,
             "y": 0.0,
             "z": 0.0,
-            "Rx": true,
-            "Ry": true,
-            "Rz": false
+            "Tx": true,
+            "Ty": true,
+            "Tz": false,
+            "Mx": false,
+            "My": false,
+            "Mz": false
         },
-        "Nó 2": {
+        "No 2": {
             "x": 1.0,
             "y": 0.0,
             "z": 0.0,
-            "Rx": false,
-            "Ry": true,
-            "Rz": false
+            "Tx": false,
+            "Ty": true,
+            "Tz": false,
+            "Mx": false,
+            "My": false,
+            "Mz": false
         },
-        "Nó 3": {
+        "No 3": {
             "x": 1.0,
             "y": 1.0,
             "z": 0.0,
-            "Rx": false,
-            "Ry": false,
-            "Rz": false
+            "Tx": false,
+            "Ty": false,
+            "Tz": false,
+            "Mx": false,
+            "My": false,
+            "Mz": false
         }
     },
-    "bars": [[0.0,1000.0,1000.0],
-             [1000.0,0.0,1000.0],
-             [1000.0,1000.0,0.0]],
+    "E": [[0.0,1000.0,1000.0],
+         [1000.0,0.0,1000.0],
+         [1000.0,1000.0,0.0]],
+    "A": [[0.0,1.0,1.0],
+         [1.0,0.0,1.0],
+         [1.0,1.0,0.0]],
     "loads": [[0.0,0.0,0.0],
               [0.0,0.0,0.0],
               [1.0,-1.0,0.0]]
