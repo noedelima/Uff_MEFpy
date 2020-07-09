@@ -1,0 +1,57 @@
+{
+    "dim": 2,
+    "n": 2,
+    "tag": "Exemplo de Uma Barra",
+    "nodes": {
+        "No 1": {
+            "id": 0,
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "Tx": true,
+            "Ty": true,
+            "Tz": false,
+            "Rx": false,
+            "Ry": false,
+            "Rz": false,
+            "Fx": 0.0,
+            "Fy": 0.0,
+            "Fz": 0.0,
+            "Mx": 0.0,
+            "My": 0.0,
+            "Mz": 0.0
+        },
+        "No 2": {
+            "id": 1,
+            "x": 2.0,
+            "y": 0.0,
+            "z": 0.0,
+            "Tx": false,
+            "Ty": true,
+            "Tz": false,
+            "Rx": false,
+            "Ry": false,
+            "Rz": false,
+            "Fx": 0.0,
+            "Fy": 0.0,
+            "Fz": 0.0,
+            "Mx": 0.0,
+            "My": 0.0,
+            "Mz": 0.0
+        }
+    },
+    "bars": {
+        "Barra 1": {
+            "id": 0,
+            "from": 0,
+            "to": 1,
+            "S": 1e-3,
+            "E": 1e6,
+            "I": 1e-4,
+            "J": 1e-4,
+            "P": 1.0,
+            "Px": 0.0,
+            "Px2": 0.0
+        }
+    }
+}
