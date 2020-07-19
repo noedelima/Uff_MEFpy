@@ -14,7 +14,7 @@
             "Tz": false,
             "Rx": false,
             "Ry": false,
-            "Rz": true,
+            "Rz": false,
             "Fx": 0.0,
             "Fy": 0.0,
             "Fz": 0.0,
